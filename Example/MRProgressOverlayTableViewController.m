@@ -8,6 +8,7 @@
 
 #import "MRProgressOverlayTableViewController.h"
 #import "MRProgressOverlayView.h"
+#import "MRProgressOverlayView+SIHelper.h"
 
 
 @interface MRProgressOverlayTableViewController ()
@@ -150,6 +151,18 @@
 
 - (IBAction)onShowAlertView:(id)sender {
     [[[UIAlertView alloc] initWithTitle:@"Native Alert View" message:@"Just to compare blur effects." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+}
+
+- (IBAction)showSISuccess:(id)sender {
+    [MRProgressOverlayView showSuccessWithStatus:@"hellohellohellohellohellohellohellohellohellohellohellohello"];
+}
+
+- (IBAction)showSIFailed:(id)sender {
+    [MRProgressOverlayView showErrorWithStatus:@"worldworldworldworldworldworldworldworldworldworldworldworldworldworldworld"];
+}
+
+- (IBAction)showSINone:(id)sender {
+        [MRProgressOverlayView showStatus:@"hello world" withCustoModeView:nil duration:2.0];
 }
 
 - (void)simulateProgressView:(MRProgressOverlayView *)progressView {

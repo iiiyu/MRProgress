@@ -11,3 +11,4 @@
 #import "MRIconView.h"
 #import "MRNavigationBarProgressView.h"
 #import "MRProgressOverlayView.h"
+#import "MRProgressOverlayView+SIHelper.h"
