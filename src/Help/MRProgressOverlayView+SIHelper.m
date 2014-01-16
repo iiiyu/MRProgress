@@ -10,19 +10,64 @@
 
 @implementation MRProgressOverlayView (SIHelper)
 
+
++ (instancetype)sharedView {
+    static dispatch_once_t once;
+    static MRProgressOverlayView *sharedView;
+    dispatch_once(&once, ^ {
+        sharedView = [self new];
+        sharedView.tintColor = [UIColor colorWithRed: 0.226 green: 0.675 blue: 0.677 alpha: 1];
+        
+    });
+    return sharedView;
+}
+
++ (void)showWithMaskType:(MRProgressOverlayViewType)type
+{
+    [self showWithMaskType:type animated:YES];
+}
+
++ (void)showWithMaskType:(MRProgressOverlayViewType)type animated:(BOOL)animated
+{
+    [self showStatus:@"Loading..." withCustoModeView:nil duration:-1 maskType:type];
+}
+
++ (void)dismiss
+{
+    [MRProgressOverlayView dismissOverlayForView:[self rootView] animated:YES];
+}
+
 + (void)showSuccessWithStatus:(NSString*)string
 {
-    [self showStatus:string withCustoModeView:[MRCheckmarkIconView new] duration:1.0];
+    [self showStatus:string withCustoModeView:[MRCheckmarkIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
 + (void)showErrorWithStatus:(NSString *)string
 {
-    [self showStatus:string withCustoModeView:[MRCrossIconView new] duration:1.0];
+    [self showStatus:string withCustoModeView:[MRCrossIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
-+ (void)showStatus:(NSString *)string withCustoModeView:(UIView *)modeView duration:(NSTimeInterval)duration
++ (void)showStatus:(NSString *)string withCustoModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type
 {
-    MRProgressOverlayView *progressView = [MRProgressOverlayView showOverlayAddedTo:[self rootView] animated:YES];
+    MRProgressOverlayView *progressView = [self sharedView];
+    
+    if (![[[self rootView] subviews] containsObject:progressView]) {
+        [[self rootView] addSubview:progressView];
+        [progressView show:YES];
+    } else {
+        [progressView show:NO];
+    }
+    
+    switch (type) {
+        case MRProgressOverlayViewTypeClear:
+            progressView.backgroundColor = UIColor.clearColor;
+            break;
+        case MRProgressOverlayViewTypeBlack:
+            progressView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.4f];
+            break;
+        default:
+            break;
+    }
     
     if (modeView) {
         progressView.modeView.hidden = YES;
@@ -30,12 +75,16 @@
             [progressView.modeView performSelector:@selector(stopAnimating)];
         }
         progressView.modeView = modeView;
+    } else {
+        progressView.mode = MRProgressOverlayViewModeIndeterminate;
     }
     
     progressView.titleLabelText = string;
-    [self performBlock:^{
-        [progressView dismiss:YES];
-    } afterDelay:duration ?: 1.0];
+    if (duration != -1) {
+        [self performBlock:^{
+            [progressView dismiss:YES];
+        } afterDelay:duration ?: 1.0];
+    }
 }
 
 #pragma mark - private method
@@ -49,7 +98,6 @@
             return window;
         }
     }
-    
     return nil;
 }
 

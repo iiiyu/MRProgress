@@ -9,6 +9,7 @@
 #import "MRProgressOverlayTableViewController.h"
 #import "MRProgressOverlayView.h"
 #import "MRProgressOverlayView+SIHelper.h"
+#import "SITestView.h"
 
 
 @interface MRProgressOverlayTableViewController ()
@@ -162,7 +163,11 @@
 }
 
 - (IBAction)showSINone:(id)sender {
-        [MRProgressOverlayView showStatus:@"hello world" withCustoModeView:nil duration:2.0];
+    [MRProgressOverlayView showWithMaskType:MRProgressOverlayViewTypeClear];
+//    [MRProgressOverlayView showStatus:@"hello world" withCustoModeView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked"]] duration:1.0]; //[SITestView new] duration:1.0];
+    [self performBlock:^{
+        [MRProgressOverlayView showSuccessWithStatus:@"Success!"];
+    } afterDelay:5.0];
 }
 
 - (void)simulateProgressView:(MRProgressOverlayView *)progressView {
