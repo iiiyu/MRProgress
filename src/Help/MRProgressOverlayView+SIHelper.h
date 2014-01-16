@@ -16,6 +16,8 @@ typedef NS_ENUM(NSUInteger, MRProgressOverlayViewType) {
 
 @interface MRProgressOverlayView (SIHelper)
 
++ (instancetype)sharedView;
+
 + (void)showWithMaskType:(MRProgressOverlayViewType)type;
 
 + (void)showSuccessWithStatus:(NSString*)string;
