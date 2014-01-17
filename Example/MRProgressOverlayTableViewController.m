@@ -164,10 +164,14 @@
 
 - (IBAction)showSINone:(id)sender {
     [MRProgressOverlayView showWithMaskType:MRProgressOverlayViewTypeClear];
-//    [MRProgressOverlayView showStatus:@"hello world" withCustoModeView:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"checked"]] duration:1.0]; //[SITestView new] duration:1.0];
+    [MRProgressOverlayView sharedView].stopBlock =^(MRProgressOverlayView *view){
+        [view dismiss:YES];
+    };
     [self performBlock:^{
-        [MRProgressOverlayView showSuccessWithStatus:@"Success!"];
-    } afterDelay:5.0];
+        [MRProgressOverlayView showStatus:@"hello" withCustoModeView:[SITestView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+    } afterDelay:2.0];
+    
+    
 }
 
 - (void)simulateProgressView:(MRProgressOverlayView *)progressView {

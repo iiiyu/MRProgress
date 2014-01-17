@@ -7,6 +7,7 @@
 //
 
 #import "MRProgressOverlayView+SIHelper.h"
+#import "SIIconView.h"
 
 @implementation MRProgressOverlayView (SIHelper)
 
@@ -34,17 +35,18 @@
 
 + (void)dismiss
 {
+    [MRProgressOverlayView sharedView].stopBlock = nil;
     [MRProgressOverlayView dismissOverlayForView:[self rootView] animated:YES];
 }
 
 + (void)showSuccessWithStatus:(NSString*)string
 {
-    [self showStatus:string withCustoModeView:[MRCheckmarkIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+    [self showStatus:string withCustoModeView:[SICheckmarkIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
 + (void)showErrorWithStatus:(NSString *)string
 {
-    [self showStatus:string withCustoModeView:[MRCrossIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+    [self showStatus:string withCustoModeView:[SICrossIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
 + (void)showStatus:(NSString *)string withCustoModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type
