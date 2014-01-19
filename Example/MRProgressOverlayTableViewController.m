@@ -168,7 +168,7 @@
         [view dismiss:YES];
     };
     [self performBlock:^{
-        [MRProgressOverlayView showStatus:@"hello" withCustoModeView:[SITestView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+        [MRProgressOverlayView showStatus:@"hello" withCustomModeView:[SITestView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
     } afterDelay:2.0];
     
     

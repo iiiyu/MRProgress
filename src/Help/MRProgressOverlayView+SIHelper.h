@@ -24,7 +24,7 @@ typedef NS_ENUM(NSUInteger, MRProgressOverlayViewType) {
 
 + (void)showErrorWithStatus:(NSString *)string;
 
-+ (void)showStatus:(NSString *)string withCustoModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type;
++ (void)showStatus:(NSString *)string withCustomModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type;
 
 + (void)dismiss;
 

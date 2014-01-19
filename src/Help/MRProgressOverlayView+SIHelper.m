@@ -30,7 +30,7 @@
 
 + (void)showWithMaskType:(MRProgressOverlayViewType)type animated:(BOOL)animated
 {
-    [self showStatus:@"Loading..." withCustoModeView:nil duration:-1 maskType:type];
+    [self showStatus:@"Loading..." withCustomModeView:nil duration:-1 maskType:type];
 }
 
 + (void)dismiss
@@ -41,15 +41,15 @@
 
 + (void)showSuccessWithStatus:(NSString*)string
 {
-    [self showStatus:string withCustoModeView:[SICheckmarkIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+    [self showStatus:string withCustomModeView:[SICheckmarkIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
 + (void)showErrorWithStatus:(NSString *)string
 {
-    [self showStatus:string withCustoModeView:[SICrossIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
+    [self showStatus:string withCustomModeView:[SICrossIconView new] duration:1.0 maskType:MRProgressOverlayViewTypeClear];
 }
 
-+ (void)showStatus:(NSString *)string withCustoModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type
++ (void)showStatus:(NSString *)string withCustomModeView:(UIView *)modeView duration:(NSTimeInterval)duration maskType:(MRProgressOverlayViewType)type
 {
     MRProgressOverlayView *progressView = [self sharedView];
     
